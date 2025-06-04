@@ -1,0 +1,75 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Strawberry GraphQL schema cache (if using plugins)
+*.graphql.py
+
+# Virtual environments
+venv/
+.env/
+.env.bak/
+.venv/
+
+# Environment variables / secrets
+*.env
+*.env.*
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# Logs
+*.log
+logs/
+
+# Test outputs
+htmlcov/
+coverage.xml
+*.cover
+.cache/
+.pytest_cache/
+.tox/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# MyPy & typing artifacts
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# wheel / build
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+
+# Dependency management
+poetry.lock
+Pipfile.lock
+
+# SQLite / local dbs
+*.db
+*.sqlite3
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# OS garbage
+Thumbs.db
+ehthumbs.db
