@@ -1,6 +1,8 @@
 import strawberry
-from enum import Enum
 from typing import Optional
+
+from resolvers.organization_resolver import OrganizationResolver
+
 
 @strawberry.type
 class Contact:
@@ -23,11 +25,6 @@ class Pet:
     gender: str
     description: Optional[str]
     photo: Optional[str]
-    organization: Optional[Organization]
+    organization_id: Optional[strawberry.ID]
+    organization: Optional[Organization] = strawberry.field(resolver=OrganizationResolver.resolve)
     contact: Optional[Contact]
-
-@strawberry.enum
-class Source(Enum):
-    PETFINDER = "petfinder"
-    RESCUEGROUPS = "rescuegroups"
-
