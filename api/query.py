@@ -2,7 +2,7 @@ from typing import List
 
 import strawberry
 from api.types.types import Pet
-from resolvers.pet_resolver import PetsResolver
+from resolvers.pets_resolver import PetsResolver
 
 @strawberry.type
 class Query:
