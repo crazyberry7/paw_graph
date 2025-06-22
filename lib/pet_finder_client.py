@@ -6,6 +6,8 @@ load_dotenv() # loads environment variables from a .env file
 
 class PetFinderClient:
     """Client for interacting with the PetFinder API."""
+    BASE_URL = "https://api.petfinder.com/v2"
+    # url = f"https://api.petfinder.com/v2/animals?location={location}&type={type.capitalize()}&limit={limit}"
     PETFINDER_CLIENT_ID = os.getenv("PETFINDER_CLIENT_ID")
     PETFINDER_CLIENT_SECRET = os.getenv("PETFINDER_CLIENT_SECRET")
     _token_cache = {"token": None, "expires_at": 0}
@@ -31,9 +33,18 @@ class PetFinderClient:
             return cls._token_cache["token"]
 
     @classmethod
-    async def get(cls, url: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    async def get_adoptable_pets(cls, params: Optional[Dict[str, Any]] = None) -> list[Dict[str, Any]]:
         token = await cls.get_token()
+        url = f"https://api.petfinder.com/v2/animals?location={params.get("location")}&type={params.get("type")}&limit={params.get("limit")}"
         async with httpx.AsyncClient() as client:
             res = await client.get(url, headers={"Authorization": f"Bearer {token}"},
                                         params=params)
-        return res.json()
+        return res.json().get("animals", [])
+
+    @classmethod
+    async def get(cls, url: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        token = await cls.get_token()
+        async with httpx.AsyncClient() as client:
+            res = await client.get(url, headers={"Authorization": f"Bearer {token}"}, params=params)
+            res.raise_for_status()
+            return res.json()
